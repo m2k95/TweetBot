@@ -1,6 +1,7 @@
 import requests
 import twitter
 import os
+from BotLog import TweetBotLog
 
 class du3aaAPI():
     
@@ -21,12 +22,14 @@ class du3aaAPI():
 
             if(len(data) > self.length):
                 # print(f'length is {len(data)} - bigger than {self.length}')
+                TweetBotLog('Data length is long. Trying again')
                 self.Get()
             else:
                 # print(data)
                 # print(f'length is {len(data)}')
                 self.Post(data)
         except Exception:
+            TweetBotLog('Exception occured while requesting data. Trying again')
             self.Get()
 
     def Post(self, status):
@@ -39,8 +42,10 @@ class du3aaAPI():
             )
             # print(api.VerifyCredentials())
             post = api.PostUpdate(status=status)
+            TweetBotLog('Tweet posted')
             # print(post)
         except Exception:
+            TweetBotLog('Exception occured while posting. Trying again')
             self.Get()
 
 if __name__ == "__main__":
