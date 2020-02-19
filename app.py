@@ -4,12 +4,12 @@ import os
 from BotLog import TweetBotLog
 
 class du3aaAPI():
-    
+
     def __init__(self, length=280):
-        self.consumer_key = os.environ.get('CONSUMER_KEY')
-        self.consumer_secret = os.environ.get('CONSUMER_SECRET')
-        self.access_token_key = os.environ.get('ACCESS_TOKEN_KEY')
-        self.access_token_secret = os.environ.get('ACCESS_TOKEN_SECRET')
+        self.consumer_key = "igqHTcN90lrAJkmpMv2dCBBrx"
+        self.consumer_secret = "xM1HIUhCdIQJTh2qbmxXoByqay96HklXw2ymgTGUvg7KTTdrDA"
+        self.access_token_key = "838160676199755776-YnmjKQxeht0YeXdyvV1vSZ7BJX1h7fY"
+        self.access_token_secret = "v7cGkFnV7G6ojQcYnksJfo2Kicxq5WxJ2QoWE3frfEiDs"
         self.length = length
 
     def Get(self):
@@ -49,5 +49,5 @@ class du3aaAPI():
             self.Get()
 
 if __name__ == "__main__":
-    du3aa = du3aaAPI()
-    du3aa.Get()
+	du3aa = du3aaAPI()
+	du3aa.Get()
