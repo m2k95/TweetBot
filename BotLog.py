@@ -15,4 +15,4 @@ if not os.path.exists(FILEPATH):
     os.makedirs(FILEPATH)
 
 # Configure logging
-logging.basicConfig(filename=FILEPATH + FILENAME, filemode='a', format=FORMAT, level=logging.DEBUG)
+logging.basicConfig(filename=FILEPATH + FILENAME, filemode='a', format=FORMAT, level=logging.INFO)
