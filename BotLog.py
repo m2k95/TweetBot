@@ -1,28 +1,18 @@
-from time import time
 from datetime import datetime
+import logging
 import os
-import os.path
 
-def TweetBotLog(status):
-    Dirctory = 'logs'
-    if not os.path.exists(Dirctory):
-        os.makedirs(Dirctory)
+# Logging format
+FORMAT = "[%(asctime)-15s] [%(levelname)s] %(message)s"
 
-    DATENOW = datetime.now().strftime('%Y-%m-%d')
+# Logging filename and path
+DATENOW = datetime.now().strftime('%Y-%m-%d')
+CURRENTPATH = os.path.dirname(os.path.realpath(__file__))
+FILEPATH = CURRENTPATH + '/logs/'
+FILENAME = DATENOW + '.log'
 
-    filename = DATENOW + '.log'
+if not os.path.exists(FILEPATH):
+    os.makedirs(FILEPATH)
 
-    FullFileName = Dirctory + '/' + filename
-    file_exists = os.path.isfile(FullFileName)
-
-    with open(FullFileName, 'a') as LogFile:
-
-        timestamp = time()
-        dt_object = datetime.fromtimestamp(timestamp)
-
-        if not file_exists:
-            LogFile.write('# TweetBot Logs\n')
-            LogFile.write('# ' + DATENOW + '\n')
-            LogFile.write('# @du3aaAPI\n')
-
-        LogFile.write(f'\n[{dt_object.strftime("%I:%M:%S %p")}] {status}')
+# Configure logging
+logging.basicConfig(filename=FILEPATH + FILENAME, filemode='a', format=FORMAT, level=logging.DEBUG)
