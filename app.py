@@ -25,8 +25,8 @@ class du3aaAPI():
                 self.Get()
             else:
                 self.Post(data)
-        except Exception:
-            logging.exception('Exception occured while requesting data. Trying again')
+        except Exception as e:
+            logging.error(f'Exception occured while requesting data. Trying again: {e}')
             self.Get()
 
     def Post(self, status):
@@ -39,8 +39,8 @@ class du3aaAPI():
             )
             post = api.PostUpdate(status=status)
             logging.info('Tweet posted')
-        except Exception:
-            logging.exception('Exception occured while posting. Trying again')
+        except Exception as e:
+            logging.error(f'Exception occured while posting. Trying again: {e}')
             self.Get()
 
 if __name__ == "__main__":
