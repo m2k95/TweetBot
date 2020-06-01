@@ -3,6 +3,7 @@ import twitter
 import os
 import BotLog
 import logging
+import pymongo
 
 class du3aaAPI():
 
@@ -11,14 +12,15 @@ class du3aaAPI():
         self.consumer_secret = os.environ.get('CONSUMER_SECRET')
         self.access_token_key = os.environ.get('ACCESS_TOKEN_KEY')
         self.access_token_secret = os.environ.get('ACCESS_TOKEN_SECRET')
+        self.MonogoDB = pymongo.MongoClient(os.environ.get('MONGODB'))
+        self.DB = self.MonogoDB[os.environ.get('DATABASE_NAME')]
+        self.collection = self.DB[os.environ.get('D_COLLECTION')]
         self.length = length
 
     def Get(self):
         try:
-            response = requests.get('https://du3aa.rest/api/')
-
-            data = response.json()
-            data = data['du3aa']
+            for r in self.collection.aggregate([{ "$sample": { "size": 1 } }]):
+                data = r['du3aa']
 
             if(len(data) > self.length):
                 logging.error('Data length is long. Trying again')
