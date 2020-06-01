@@ -118,7 +118,7 @@ class du3aaAPI():
                 access_token_key=access_token_key,
                 access_token_secret=access_token_secret
             )
-            post = api.PostUpdate(status=status)
+            post = api.PostUpdate(status=(f'{status} @du3aaAPI'))
             self.count += 1
 
         except twitter.error.TwitterError as e:
