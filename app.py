@@ -162,13 +162,13 @@ class du3aaAPI():
             api.VerifyCredentials()
             
         except twitter.error.TwitterError as e:
-            cleanLogger.error(f'Exception occured in cleaning process. Trying again: {e}')
             err = e.message[0]['message']
             if (err == 'Invalid or expired token.'):
                 data = { "user_id": user_id }
-                self.collection.delete_one(data)
+                self.tcollection.delete_one(data)
                 self.deleted += 1
             else:
+                cleanLogger.error(f'Exception occured in cleaning process. Trying again: {e}')
                 self.cleaningProcess(access_token_key, access_token_secret, user_id)
 
         except Exception as e:
