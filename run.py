@@ -12,7 +12,7 @@ else:
         app = du3aaAPI()
         app.Post()
     elif (str(sys.argv[1]) == 'postAll'):
-        app = du3aaAPI()
+        app = du3aaAPI(270)
         app.Iterate()
     elif (str(sys.argv[1]) == 'clean'):
         app = du3aaAPI()
