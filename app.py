@@ -72,6 +72,12 @@ class du3aaAPI():
             if(len(data) > self.length):
                 getRandomLogger.error('Data length is long. Trying again')
                 self.getRandom()
+            if(len(data) == 0):
+                getRandomLogger.error('Data length equals 0. Trying again')
+                self.getRandom()
+            if data is None:
+                getRandomLogger.error('Data type is NoneType. Trying again')
+                self.getRandom()
             else:
                 return data
         except Exception as e:
