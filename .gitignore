@@ -4,3 +4,4 @@
 **/logs
 *.DS_STORE
 *.pyc
+node_modules
