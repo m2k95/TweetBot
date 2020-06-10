@@ -17,13 +17,12 @@ app.get('/', (req, res) => {
 
 app.use('/logs', serveIndex(logsPath));
 
-app.use('/', (req, res) => {
+app.use('/logs', (req, res) => {
     var fullURL = req.protocol + '://' + req.get('host') + req.originalUrl;
     var r = fullURL.split('/').reverse();
 
     fs.readFile(`./logs/${r[1]}/${r[0]}`, (e, data) => {
         if (e) throw e;
-        console.log(data);
         res.send(data.toString());
     });
 });
