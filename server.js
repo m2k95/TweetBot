@@ -23,6 +23,7 @@ app.use('/logs', (req, res) => {
 
     fs.readFile(`./logs/${r[1]}/${r[0]}`, (e, data) => {
         if (e) throw e;
+        res.setHeader('Content-type', 'application/json');
         res.send(data.toString());
     });
 });
