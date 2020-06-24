@@ -62,6 +62,7 @@ class du3aaAPI():
         self.tcollection = self.DB[os.environ.get('T_COLLECTION')]
         self.length = length
         self.count = 0
+        self.not_posted = 0
         self.deleted = 0
 
     def getRandom(self):
@@ -90,7 +91,7 @@ class du3aaAPI():
             for x in self.tcollection.find():
                 self.PostMulti(x['oauth_token'], x['oauth_token_secret'])
             
-            postAllLoger.info(f'{self.count} tweets posted')
+            postAllLoger.info(f'{self.count} tweets posted, {self.not_posted} tweets NOT posted.')
         except Exception as e:
             postAllLoger.error(f'Exception occured while iterating: {e}')
             pass
@@ -106,7 +107,11 @@ class du3aaAPI():
             status = self.getRandom()
 
             post = api.PostUpdate(status=status)
-            postLogger.info('Tweet posted')
+            if (post.created_at):
+                postLogger.info('Tweet posted')
+            else:
+                postLogger.error('Tweet NOT posted')
+
         except Exception as e:
             postLogger.error(f'Exception occured while posting. Trying again: {e}')
             self.Post()
@@ -125,7 +130,11 @@ class du3aaAPI():
                 access_token_secret=access_token_secret
             )
             post = api.PostUpdate(status=(f'{status} @du3aaAPI'))
-            self.count += 1
+
+            if (post.created_at):
+                self.count += 1
+            else:
+                self.not_posted += 1
 
         except twitter.error.TwitterError as e:
             postAllLoger.error(f'Exception occured while posting multi. Trying again: {e}')
