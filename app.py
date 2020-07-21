@@ -87,7 +87,7 @@ class du3aaAPI():
 
     def Iterate(self):
         try:
-            self.count = 0
+            # self.count = 0
 
             for x in self.tcollection.find():
                 if x['user_id'] in self.doneArray:
