@@ -147,6 +147,8 @@ class du3aaAPI():
             err = e.message[0]['message']
             if (err == 'Invalid or expired token.'):
                 pass
+            elif (int(e.message[0]['code']) == 326):
+                pass
             else:
                 self.PostMulti(access_token_key, access_token_secret)
 
