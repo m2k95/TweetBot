@@ -77,25 +77,23 @@ class du3aaAPI():
             if(len(data) == 0):
                 getRandomLogger.error('Data length equals 0. Trying again')
                 self.getRandom()
-            if data is None:
+            if(data is None):
                 getRandomLogger.error('Data type is NoneType. Trying again')
                 self.getRandom()
             else:
                 return data
+                
         except Exception as e:
             getRandomLogger.error(f'Exception occured while requesting data. Trying again: {e}')
 
     def Iterate(self):
         try:
-            # self.count = 0
-
             for x in self.tcollection.find():
-                if x['user_id'] in self.doneArray:
-                    pass
-                else:
+                if(x['user_id'] not in self.doneArray):
                     self.PostMulti(x['oauth_token'], x['oauth_token_secret'])
             
             postAllLoger.info(f'{self.count} tweets posted, {self.not_posted} tweets NOT posted.')
+
         except Exception as e:
             postAllLoger.error(f'Exception occured while iterating, trying again: {e}')
             self.Iterate()
@@ -146,9 +144,11 @@ class du3aaAPI():
             postAllLoger.error(f'Exception occured while posting multi. Trying again: {e}')
             err = e.message[0]['message']
             if (err == 'Invalid or expired token.'):
-                pass
+                self.not_posted += 1
+                self.doneArray.append(post.user.id_str)
             elif (int(e.message[0]['code']) == 326):
-                pass
+                self.not_posted += 1
+                self.doneArray.append(post.user.id_str)
             else:
                 self.PostMulti(access_token_key, access_token_secret)
 
