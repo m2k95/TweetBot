@@ -90,7 +90,7 @@ class du3aaAPI():
     def Iterate(self):
         try:
             for x in self.tcollection.find():
-                if(x['user_id'] not in self.doneArray):
+                if(not x['user_id'] in self.doneArray):
                     self.PostMulti(x['oauth_token'], x['oauth_token_secret'])
             
             postAllLoger.info(f'{self.count} tweets posted, {self.not_posted} tweets NOT posted.')
