@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const serveIndex = require('serve-index');
 const app = express();
-const logsPath = path.join(__dirname, 'logs/');
+const logsPath = path.join(__dirname, '../logs/');
 
 app.use(cors());
 app.use(express.static('public'))
@@ -21,7 +21,7 @@ app.use('/logs', (req, res) => {
     var fullURL = req.protocol + '://' + req.get('host') + req.originalUrl;
     var r = fullURL.split('/').reverse();
 
-    fs.readFile(`./logs/${r[1]}/${r[0]}`, (e, data) => {
+    fs.readFile(`../logs/${r[1]}/${r[0]}`, (e, data) => {
         if (e) throw e;
         res.setHeader('Content-type', 'application/json');
         res.send(data.toString());
