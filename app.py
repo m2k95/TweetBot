@@ -4,6 +4,7 @@ import twitter
 import os
 import logging
 import pymongo
+from sendEmail import sendEmail
 
 formatter = logging.Formatter("[%(asctime)-15s] [%(levelname)s] %(message)s")
 
@@ -93,6 +94,7 @@ class du3aaAPI():
                     self.PostMulti(x['oauth_token'], x['oauth_token_secret'])
             
             postAllLoger.info(f'{self.count} tweets posted, {self.not_posted} tweets NOT posted.')
+            sendEmail(self.count, self.not_posted)
 
         except Exception as e:
             postAllLoger.error(f'Exception occured while iterating, trying again: {e}')
