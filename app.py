@@ -146,11 +146,13 @@ class du3aaAPI():
             postAllLoger.error(f'Exception occured while posting multi. Trying again: {e}')
             err = e.message[0]['message']
             if (err == 'Invalid or expired token.'):
-                self.not_posted += 1
-                self.doneArray.append(post.user.id_str)
+                # self.not_posted += 1
+                # self.doneArray.append(post.user.id_str)
+                pass
             elif (int(e.message[0]['code']) == 326):
-                self.not_posted += 1
-                self.doneArray.append(post.user.id_str)
+                # self.not_posted += 1
+                # self.doneArray.append(post.user.id_str)
+                pass
             else:
                 self.PostMulti(access_token_key, access_token_secret)
 
