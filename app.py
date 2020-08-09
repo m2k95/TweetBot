@@ -92,7 +92,7 @@ class du3aaAPI():
     def Iterate(self):
         try:
             for x in self.tcollection.find():
-                if(not x['user_id'] in self.doneArray):
+                if(not x['oauth_token_secret'] in self.doneArray):
                     self.PostMulti(x['oauth_token'], x['oauth_token_secret'])
             
             postAllLoger.info(f'{self.count} tweets posted, {self.not_posted} tweets NOT posted.')
@@ -143,21 +143,21 @@ class du3aaAPI():
 
             if (post.created_at):
                 self.count += 1
-                self.doneArray.append(post.user.id_str)
+                self.doneArray.append(oauth_token_secret)
             else:
                 self.not_posted += 1
-                self.doneArray.append(post.user.id_str)
+                self.doneArray.append(oauth_token_secret)
 
         except twitter.error.TwitterError as e:
             postAllLoger.error(f'Exception occured while posting multi. Trying again: {e}')
             err = e.message[0]['message']
             if (err == 'Invalid or expired token.'):
                 self.not_posted += 1
-                # self.doneArray.append(post.user.id_str)
+                self.doneArray.append(oauth_token_secret)
                 # pass
             elif (int(e.message[0]['code']) == 326):
                 self.not_posted += 1
-                # self.doneArray.append(post.user.id_str)
+                self.doneArray.append(oauth_token_secret)
                 # pass
             else:
                 self.PostMulti(access_token_key, access_token_secret)
