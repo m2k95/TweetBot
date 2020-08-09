@@ -4,12 +4,11 @@ from email.mime.text import MIMEText
 from datetime import datetime
 import os
 
-def sendEmail(success, failed):
+def sendEmail(arr):
     MY_ADDRESS = os.environ.get('EMAIL_USER')
     PASSWORD = os.environ.get('EMAIL_PASS')
 
     now = datetime.now()
-    Time=now.strftime("%I:%M %p")
     Date=now.strftime("%F")
 
     s = smtplib.SMTP(host='smtp.gmail.com', port=587)
@@ -17,6 +16,16 @@ def sendEmail(success, failed):
     s.login(MY_ADDRESS, PASSWORD)
 
     msg = MIMEMultipart()
+
+    tableBody = ''
+
+    for x in range(len(arr)):
+        tableBody += f"""
+            <tr>
+                <td style="border: 1px solid black;text-align: center;">{arr[x][2]}</td>
+                <td style="border: 1px solid black;text-align: center; background-color: lime;">{arr[x][3]}</td>
+                <td style="border: 1px solid black;text-align: center; background-color: red;">{arr[x][4]}</td>
+            </tr>"""
 
     message = f'''<p>Du3aaAPI PostAll info {Date}</p>
     <table style="border-collapse: collapse;border: 1px solid black;">
@@ -28,11 +37,7 @@ def sendEmail(success, failed):
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td style="border: 1px solid black;text-align: center;">{Time}</td>
-                <td style="border: 1px solid black;text-align: center; background-color: lime;">{success}</td>
-                <td style="border: 1px solid black;text-align: center; background-color: red;">{failed}</td>
-            </tr>
+            {tableBody}
         </tbody>
     </table>'''
 
@@ -46,6 +51,3 @@ def sendEmail(success, failed):
     del msg
         
     s.quit()
-    
-if __name__ == '__main__':
-    sendEmail(1, 2)
