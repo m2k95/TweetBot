@@ -26,12 +26,10 @@ def createDatabse():
             sqliteConnection.commit()
             cursor.close()
 
+            sqliteConnection.close()
+
     except sqlite3.Error as error:
         print("Failed: ", error)
-
-    finally:
-        if (sqliteConnection):
-            sqliteConnection.close()
 
 def insertData(d, t, s, f):
 
@@ -49,12 +47,10 @@ def insertData(d, t, s, f):
         count = cursor.execute(sqlite_insert_query)
         sqliteConnection.commit()
 
+        sqliteConnection.close()
+
     except sqlite3.Error as error:
         print("Failed: ", error)
-
-    finally:
-        if (sqliteConnection):
-            sqliteConnection.close()
 
 def readData():
 
@@ -81,12 +77,10 @@ def readData():
 
         sendEmail(arr)
 
+        sqliteConnection.close()
+
     except sqlite3.Error as error:
         print("Failed: ", error)
-
-    finally:
-        if (sqliteConnection):
-            sqliteConnection.close()
 
 if __name__ == "__main__":
     readData()
