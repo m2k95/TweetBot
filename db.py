@@ -1,6 +1,7 @@
 import sqlite3
 import os
 from datetime import datetime
+from sendEmail import sendEmail
 
 def createDatabse():
 
@@ -78,7 +79,7 @@ def readData():
             if output[x][1] == str(Date):
                 arr.append(output[x])
 
-        print(arr)
+        sendEmail(arr)
 
     except sqlite3.Error as error:
         print("Failed: ", error)
@@ -87,7 +88,5 @@ def readData():
         if (sqliteConnection):
             sqliteConnection.close()
 
-
-# createDatabse()
-insertData('asd', 'ddd', '333', '32323')
-# readData()
+if __name__ == "__main__":
+    readData()
