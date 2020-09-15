@@ -22,24 +22,29 @@ def sendEmail(arr):
     for x in range(len(arr)):
         tableBody += f"""
             <tr>
-                <td style="border: 1px solid black;text-align: center;">{arr[x][2]}</td>
-                <td style="border: 1px solid black;text-align: center; background-color: lime;">{arr[x][3]}</td>
-                <td style="border: 1px solid black;text-align: center; background-color: red;">{arr[x][4]}</td>
+                <td style="border:1px solid black;padding:5px;">{arr[x][2]}</td>
+                <td style="border:1px solid black;padding:5px;background:lime">{arr[x][3]}</td>
+                <td style="border:1px solid black;padding:5px;background:red">{arr[x][4]}</td>
             </tr>"""
 
-    message = f'''<p>Du3aaAPI PostAll info {Date}</p>
-    <table style="border-collapse: collapse;border: 1px solid black;">
-        <thead>
-            <tr>
-                <th style="border: 1px solid black;">Date</th>
-                <th style="border: 1px solid black;">Success</th>
-                <th style="border: 1px solid black;">Failed</th>
-            </tr>
-        </thead>
-        <tbody>
-            {tableBody}
-        </tbody>
-    </table>'''
+    message = f'''<div style="text-align:center;width:100%;font-family:sans-serif;">
+                <h1 style="text-align:center;">Du3aaAPI</h1>
+                <p style="text-align:center;">postAll function feedback {Date}</p>
+                <div style="width:100%">
+                    <table style="border:1px solid black;border-collapse:collapse;margin-left:auto;margin-right:auto;text-align:center;">
+                        <thead>
+                            <tr>
+                                <th style="border:1px solid black;padding:5px;">Date</th>
+                                <th style="border:1px solid black;padding:5px;">Success</th>
+                                <th style="border:1px solid black;padding:5px;">Fail</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {tableBody}
+                        </tbody>
+                    </table>
+                </div>
+            </div>'''
 
     msg['From'] = f'Du3aaAPI Monitor <{MY_ADDRESS}>'
     msg['To'] = MY_ADDRESS
