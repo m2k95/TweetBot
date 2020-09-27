@@ -12,7 +12,7 @@ def createDatabse():
     try:
 
         if(not os.path.isfile('./Database.db')):
-            sqliteConnection = sqlite3.connect('Database.db')
+            sqliteConnection = sqlite3.connect('./Database.db')
 
             sqlite_create_table_query = '''CREATE TABLE Du3aaData (
                                         id INTEGER PRIMARY KEY,
@@ -38,7 +38,7 @@ def insertData(d, t, s, f):
     """
 
     try:
-        sqliteConnection = sqlite3.connect('Database.db')
+        sqliteConnection = sqlite3.connect('./Database.db')
         cursor = sqliteConnection.cursor()
 
         sqlite_insert_query = f"""INSERT INTO Du3aaData
@@ -59,7 +59,7 @@ def readData():
     """
 
     try:
-        sqliteConnection = sqlite3.connect('Database.db')
+        sqliteConnection = sqlite3.connect('./Database.db')
 
         cursor = sqliteConnection.cursor()
         sqlite_select_query = """SELECT * from Du3aaData"""
