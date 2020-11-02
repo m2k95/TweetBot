@@ -7,21 +7,14 @@ const app = express();
 const logsPath = path.join(__dirname, '../logs/');
 
 app.use(cors());
-app.use(express.static('public'))
-
-app.get('/', (req, res) => {
-    res.json({
-        message: "Hello Wolrd!"
-    })
-})
-
+app.use('/', express.static('public'))
 app.use('/logs', serveIndex(logsPath));
 
 app.use('/logs', (req, res) => {
     var fullURL = req.protocol + '://' + req.get('host') + req.originalUrl;
     var r = fullURL.split('/').reverse();
 
-    fs.readFile(`../logs/${r[1]}/${r[0]}`, (e, data) => {
+    fs.readFile(`../logs/${r[1]}/${r[0]}`, 'utf8', (e, data) => {
         if (e) throw e;
         res.setHeader('Content-type', 'application/json');
         res.send(data.toString());
