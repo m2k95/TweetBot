@@ -10,26 +10,17 @@ formatter = logging.Formatter("[%(asctime)-15s] [%(levelname)s] %(message)s")
 # Logging filename and path
 DATENOW = datetime.now().strftime('%Y-%m-%d')
 CURRENTPATH = os.path.dirname(os.path.realpath(__file__))
-GET_RANDOM_FILPATH = CURRENTPATH + '/logs/getRandom/'
-POST_FILEPATH = CURRENTPATH + '/logs/post/'
+LOGGER_PATH = CURRENTPATH + '/logs/'
 FILENAME = DATENOW + '.log'
 
-if not os.path.exists(GET_RANDOM_FILPATH):
-    os.makedirs(GET_RANDOM_FILPATH)
-if not os.path.exists(POST_FILEPATH):
-    os.makedirs(POST_FILEPATH)
+if not os.path.exists(LOGGER_PATH):
+    os.makedirs(LOGGER_PATH)
 
-getRandomLogger = logging.getLogger('GET_RANDOM')
-getRandomLogger.setLevel(logging.INFO)
-random_file_handler = logging.FileHandler(GET_RANDOM_FILPATH + FILENAME)
-random_file_handler.setFormatter(formatter)
-getRandomLogger.addHandler(random_file_handler)
-
-postLogger = logging.getLogger('POST')
-postLogger.setLevel(logging.INFO)
-post_file_handler = logging.FileHandler(POST_FILEPATH + FILENAME)
-post_file_handler.setFormatter(formatter)
-postLogger.addHandler(post_file_handler)
+MainLogger = logging.getLogger('GET_RANDOM')
+MainLogger.setLevel(logging.INFO)
+logger_file_handler = logging.FileHandler(LOGGER_PATH + FILENAME)
+logger_file_handler.setFormatter(formatter)
+MainLogger.addHandler(logger_file_handler)
 
 class du3aaAPI():
 
@@ -49,19 +40,19 @@ class du3aaAPI():
                 data = r['du3aa']
 
             if(len(data) > self.length):
-                getRandomLogger.error('Data length is long. Trying again')
+                MainLogger.error('Data length is long. Trying again')
                 self.getRandom()
             if(len(data) == 0):
-                getRandomLogger.error('Data length equals 0. Trying again')
+                MainLogger.error('Data length equals 0. Trying again')
                 self.getRandom()
             if(data is None):
-                getRandomLogger.error('Data type is NoneType. Trying again')
+                MainLogger.error('Data type is NoneType. Trying again')
                 self.getRandom()
             else:
                 return data
                 
         except Exception as e:
-            getRandomLogger.error(f'Exception occured while requesting data. Trying again: {e}')
+            MainLogger.error(f'Exception occured while requesting data. Trying again: {e}')
 
     def Post(self):
         try:
@@ -75,12 +66,12 @@ class du3aaAPI():
 
             post = api.PostUpdate(status=status)
             if (post.created_at):
-                postLogger.info('Tweet posted')
+                MainLogger.info('Tweet posted')
             else:
-                postLogger.error('Tweet NOT posted')
+                MainLogger.error('Tweet NOT posted')
 
         except Exception as e:
-            postLogger.error(f'Exception occured while posting. Trying again: {e}')
+            MainLogger.error(f'Exception occured while posting. Trying again: {e}')
             self.Post()
 
 if __name__ == "__main__":
