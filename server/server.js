@@ -14,7 +14,7 @@ app.use('/logs', (req, res) => {
     var fullURL = req.protocol + '://' + req.get('host') + req.originalUrl;
     var r = fullURL.split('/').reverse();
 
-    fs.readFile(`../logs/${r[1]}/${r[0]}`, 'utf8', (e, data) => {
+    fs.readFile(`../logs/${r[0]}`, 'utf8', (e, data) => {
         if (e) throw e;
         res.setHeader('Content-type', 'application/json');
         res.send(data.toString());
