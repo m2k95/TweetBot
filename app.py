@@ -37,7 +37,7 @@ class du3aaAPI():
     def getRandom(self):
         try:
             for r in self.collection.aggregate([{ "$sample": { "size": 1 } }]):
-                data = r['du3aa']
+                data = r['prayer']
 
             if(len(data) > self.length):
                 MainLogger.error('Data length is long. Trying again')
