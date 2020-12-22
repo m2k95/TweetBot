@@ -3,7 +3,7 @@ import requests
 import twitter
 import os
 import logging
-import pymongo
+import sys
 
 formatter = logging.Formatter("[%(asctime)-15s] [%(levelname)s] %(message)s")
 
@@ -76,5 +76,16 @@ class du3aaAPI():
         print(status)
 
 if __name__ == "__main__":
-    app = du3aaAPI()
-    app.Post()
+    def usage():
+        print('Usage: python app.py [post|test]')
+
+    if len(sys.argv) == 2:
+        app = du3aaAPI()
+        if sys.argv[1] == 'post':
+            app.Post()
+        elif sys.argv[1] == 'test':
+            app.getRandomTest()
+        else:
+            usage()
+    else:
+        usage()
