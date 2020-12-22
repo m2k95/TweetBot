@@ -74,6 +74,10 @@ class du3aaAPI():
             MainLogger.error(f'Exception occured while posting. Trying again: {e}')
             self.Post()
 
+    def getRandomTest(self):
+        status = self.getRandom()
+        print(status)
+
 if __name__ == "__main__":
     app = du3aaAPI()
     app.Post()
