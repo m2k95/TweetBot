@@ -29,15 +29,12 @@ class du3aaAPI():
         self.consumer_secret = os.environ.get('CONSUMER_SECRET')
         self.access_token_key = os.environ.get('ACCESS_TOKEN_KEY')
         self.access_token_secret = os.environ.get('ACCESS_TOKEN_SECRET')
-        self.MonogoDB = pymongo.MongoClient(os.environ.get('MONGODB'))
-        self.DB = self.MonogoDB[os.environ.get('DATABASE_NAME')]
-        self.collection = self.DB[os.environ.get('D_COLLECTION')]
         self.length = length
 
     def getRandom(self):
         try:
-            for r in self.collection.aggregate([{ "$sample": { "size": 1 } }]):
-                data = r['prayer']
+            response = requests.get('https://api.du3aa.rest')
+            data = response.json()['prayer']
 
             if(len(data) > self.length):
                 MainLogger.error('Data length is long. Trying again')
