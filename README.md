@@ -2,7 +2,7 @@
 A script that fetches a prayer from https://api.du3aa.rest and tweet it at [@du3aaAPI](https://twitter.com/du3aaAPI)
 
 ## Development
-> Python 3 recommended
+> Requires Python >= 3.5
 
 ### Install requirements
 `pip install -r requirements.txt`
