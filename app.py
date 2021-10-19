@@ -1,4 +1,5 @@
 from datetime import datetime
+from pathlib import Path
 import requests
 import twitter
 import os
@@ -9,12 +10,13 @@ formatter = logging.Formatter("[%(asctime)-15s] [%(levelname)s] %(message)s")
 
 # Logging filename and path
 DATENOW = datetime.now().strftime('%Y-%m-%d')
+YEAR = datetime.now().strftime('%Y')
+MONTH = datetime.now().strftime('%m')
 CURRENTPATH = os.path.dirname(os.path.realpath(__file__))
-LOGGER_PATH = CURRENTPATH + '/logs/'
+LOGGER_PATH = CURRENTPATH + '/logs/' + YEAR + '/' + MONTH + '/'
 FILENAME = DATENOW + '.log'
 
-if not os.path.exists(LOGGER_PATH):
-    os.makedirs(LOGGER_PATH)
+Path(LOGGER_PATH).mkdir(parents=True, exist_ok=True)
 
 MainLogger = logging.getLogger('GET_RANDOM')
 MainLogger.setLevel(logging.INFO)
