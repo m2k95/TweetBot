@@ -4,6 +4,11 @@ A script that fetches a prayer from https://api.du3aa.rest and tweet it at [@du3
 ## Development
 > Requires Python >= 3.5
 
+*It is recomended to create a Python virtual environment as below.*
+* Create a Python virtual environment `python3 -m venv ./venv`
+* Activate the Python virtual environment `source ./venv/bin/activate`
+* To deactivate the virtual environemnt, simply run `deactivate`
+
 ### Install requirements
 `pip install -r requirements.txt`
 
