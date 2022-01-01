@@ -33,25 +33,25 @@ class du3aaAPI():
     self.access_token_secret = os.environ.get('ACCESS_TOKEN_SECRET')
     self.length = length
 
-  def getRandom(self):
+  def getRandom(self, logging = True):
     try:
       response = requests.get('https://api.du3aa.rest')
       data = response.json()['prayer']
 
       if(len(data) > self.length):
-        MainLogger.error('Data length is long. Trying again')
+        if(logging): MainLogger.error('Data length is long. Trying again')
         self.getRandom()
       if(len(data) == 0):
-        MainLogger.error('Data length equals 0. Trying again')
+        if(logging): MainLogger.error('Data length equals 0. Trying again')
         self.getRandom()
       if(data is None):
-        MainLogger.error('Data type is NoneType. Trying again')
+        if(logging): MainLogger.error('Data type is NoneType. Trying again')
         self.getRandom()
       else:
         return data
         
     except Exception as e:
-      MainLogger.error(f'Exception occured while requesting data. Trying again: {e}')
+      if(logging): MainLogger.error(f'Exception occured while requesting data. Trying again: {e}')
 
   def Post(self):
     try:
@@ -74,7 +74,7 @@ class du3aaAPI():
       self.Post()
 
   def getRandomTest(self):
-    status = self.getRandom()
+    status = self.getRandom(False)
     print(status)
 
 if __name__ == "__main__":
