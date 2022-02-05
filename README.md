@@ -1,5 +1,5 @@
 # Du3aaAPI TweetBot
-A script that fetches a prayer from https://api.du3aa.rest and tweet it at [@du3aaAPI](https://twitter.com/du3aaAPI)
+A script that fetches a prayer from https://api.du3aa.rest and tweet it
 
 ## Development
 > Requires Python >= 3.5
