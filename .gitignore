@@ -4,5 +4,3 @@
 **/logs
 *.DS_STORE
 *.pyc
-*.db
-test
