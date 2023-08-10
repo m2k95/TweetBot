@@ -2,7 +2,8 @@
 A script that fetches a prayer from https://api.du3aa.rest and tweet it
 
 > [!WARNING]
-> test
+> stop using this
+> use the new one
 
 ## Development
 > Requires Python >= 3.5
