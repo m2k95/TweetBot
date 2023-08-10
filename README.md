@@ -1,6 +1,9 @@
 # Du3aaAPI TweetBot
 A script that fetches a prayer from https://api.du3aa.rest and tweet it
 
+> [!WARNING]
+> This script does not work anymore, you can try the new working version at https://github.com/m2kio/TweetBot-v2
+
 ## Development
 > Requires Python >= 3.5
 
